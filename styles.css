@@ -3,6 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+button {
+    cursor: pointer;
+}
+body {
+    height: 100vh;
+    background: linear-gradient(to bottom right, green, black);
+}
 header {
     border: 2px solid blue;
     display: flex;
@@ -11,8 +18,18 @@ header {
     min-height: 100px;
 }
 .board-container {
+    border: 2px solid white;
+    min-height: 75vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+.board-container button {
+    height: min-content;
+    font-size: 2rem;
+    padding: 0.5rem 2rem;
+    border-style: none;
+    border-radius: 0.5rem;
 }
 .gameboard {
     border: 2px solid red;
@@ -24,8 +41,8 @@ header {
     grid-template-rows: repeat(3, 1fr);
 }
 .gameboard>p {
-    border: 2px solid green;
     font-size: 5rem;
+    color: white;
     text-align: center;
     align-self: center;
 }
