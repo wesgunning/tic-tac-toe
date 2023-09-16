@@ -1,7 +1,10 @@
 // 3x3 Board in console
-const gameBoard = (() => {
-    const arr = [];
-    const rows = 3;
+const gameboard = (() => {
+    const arr = [
+        ['O',' ','X'],
+        [' ','X',' '],
+        ['O',' ',' ']];
+    /* const rows = 3;
     const columns = 3;
     const build = () => {
         for (let i=0; i<rows; i++) {
@@ -11,6 +14,7 @@ const gameBoard = (() => {
             }
         }
         console.log(arr);
-    };
-    return {build};
+    }; */
+    return {arr};
 })();
+
