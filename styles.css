@@ -5,6 +5,11 @@
 }
 button {
     cursor: pointer;
+    border: 2px solid buttonface;
+}
+button:hover {
+    background-color: black;
+    color: buttonface;
 }
 body {
     height: 100vh;
@@ -17,18 +22,17 @@ header {
     align-items: center;
     min-height: 100px;
 }
-.board-container {
+#board-container {
     border: 2px solid white;
     min-height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.board-container button {
+#board-container button {
     height: min-content;
     font-size: 2rem;
     padding: 0.5rem 2rem;
-    border-style: none;
     border-radius: 0.5rem;
 }
 .gameboard {

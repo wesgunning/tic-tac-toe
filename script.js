@@ -27,6 +27,27 @@ const gameboard = (() => {
             }
         }
     };
-    return {arr, build};
+    return {build};
+})();
+
+// Display
+const displayController = (() => {
+    const remove = (e) => {
+        e.remove();
+    }
+    const board = () => {
+        let div = document.createElement('div');
+        div.classList.add('gameboard');
+        let container = document.getElementById('board-container');
+        container.appendChild(div);
+        for (let i=1; i<=9; i++) {
+            let p = document.createElement('p');
+            div.appendChild(p);
+            console.log('square_' + i);
+            p.id = 'square_' + `${i}`;
+        }
+        gameboard.build();
+    }
+    return {remove, board};
 })();
 
