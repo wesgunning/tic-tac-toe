@@ -52,9 +52,15 @@ const displayController = (() => {
         container.appendChild(div);
         div.classList.add('gameboard');
         for (let i=1; i<=9; i++) {
-            let p = document.createElement('p');
+            let p = document.createElement('div');
             div.appendChild(p);
             p.id = 'square_' + `${i}`;
+            if (i<7) {
+                p.style.borderBottom = "10px solid white";
+            }
+            if (i%3 !== 0) {
+                p.style.borderRight = "10px solid white";
+            }
         }
         gameboard.build();
     }
