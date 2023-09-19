@@ -6,6 +6,7 @@
 button {
     cursor: pointer;
     border: 2px solid buttonface;
+    margin: 20px;
 }
 button:hover {
     background-color: black;
@@ -43,6 +44,7 @@ header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
 }
 .gameboard>p {
     font-size: 5rem;

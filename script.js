@@ -22,7 +22,6 @@ const gameboard = (() => {
         for (let i=0; i<rows; i++) {
             for (let j=0; j<columns; j++) {
                 document.getElementById(`square_${k}`).textContent= arr[i][j];
-                console.log(arr[i][j]);
                 k++;
             }
         }
@@ -35,19 +34,30 @@ const displayController = (() => {
     const remove = (e) => {
         e.remove();
     }
-    const board = () => {
-        let div = document.createElement('div');
-        div.classList.add('gameboard');
+    const playerSelect = () => {
         let container = document.getElementById('board-container');
+        let btn1 = document.createElement('button');
+        btn1.textContent = '1-Player';
+        let btn2 = document.createElement('button');
+        btn2.textContent = '2-Player';
+        btn1.id = '1-player';
+        btn2.id = '2-player';
+        container.append(btn1, btn2);
+        btn1.setAttribute('onclick', 'displayController.remove(document.getElementById("2-player")), displayController.remove(this)');
+        btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("1-player")), displayController.remove(this)');
+    }
+    const board = () => {
+        let container = document.getElementById('board-container');
+        let div = document.createElement('div');
         container.appendChild(div);
+        div.classList.add('gameboard');
         for (let i=1; i<=9; i++) {
             let p = document.createElement('p');
             div.appendChild(p);
-            console.log('square_' + i);
             p.id = 'square_' + `${i}`;
         }
         gameboard.build();
     }
-    return {remove, board};
+    return {remove, playerSelect, board};
 })();
 
