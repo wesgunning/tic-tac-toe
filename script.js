@@ -44,7 +44,7 @@ const displayController = (() => {
         btn2.id = '2-player';
         container.append(btn1, btn2);
         btn1.setAttribute('onclick', 'displayController.remove(document.getElementById("2-player")), displayController.remove(this)');
-        btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("1-player")), displayController.remove(this)');
+        btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
     }
     const board = () => {
         let container = document.getElementById('board-container');
@@ -64,6 +64,24 @@ const displayController = (() => {
         }
         gameboard.build();
     }
-    return {remove, playerSelect, board};
+    const markerSelect = () => {
+        let container = document.getElementById('board-container');
+        let choiceContainer = document.createElement('div');
+        container.append(choiceContainer);
+        let choice = document.createElement('div');
+        choice.id = 'choice';
+        choice.innerText = 'Player 1: Choose your marker';
+        choiceContainer.append(choice);
+        let btnContainer = document.createElement('div');
+        btnContainer.id = "btn-container";
+        choiceContainer.append(btnContainer);
+        let markerX = document.createElement('button');
+        markerX.innerText = 'X';
+        markerX.setAttribute('onclick', 'console.log(this.innerText)');
+        let markerO = document.createElement('button');
+        markerO.innerText = 'O';
+        btnContainer.append(markerX, markerO);
+    }
+    return {remove, playerSelect, board, markerSelect};
 })();
 
