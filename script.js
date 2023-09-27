@@ -67,6 +67,7 @@ const displayController = (() => {
     const markerSelect = () => {
         let container = document.getElementById('board-container');
         let choiceContainer = document.createElement('div');
+        choiceContainer.id = 'choice-container';
         container.append(choiceContainer);
         let choice = document.createElement('div');
         choice.id = 'choice';
@@ -77,11 +78,21 @@ const displayController = (() => {
         choiceContainer.append(btnContainer);
         let markerX = document.createElement('button');
         markerX.innerText = 'X';
-        markerX.setAttribute('onclick', 'console.log(this.innerText)');
+        markerX.id = 'markerX';
         let markerO = document.createElement('button');
         markerO.innerText = 'O';
+        markerO.id = 'markerO';
         btnContainer.append(markerX, markerO);
+        markerX.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerO").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
+        markerO.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerX").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
     }
     return {remove, playerSelect, board, markerSelect};
 })();
 
+// Players
+const Player = (marker) => {
+    return {marker};
+}
+
+const player1 = Player();
+const player2 = Player();
