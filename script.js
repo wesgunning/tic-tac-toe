@@ -1,9 +1,9 @@
 // 3x3 Board in console
 const gameboard = (() => {
     const arr = [
-        ['O','O','X'],
-        ['X','X','O'],
-        ['O','O','X']];
+        ['','',''],
+        ['','',''],
+        ['','','']];
     /* const rows = 3;
     const columns = 3;
     const build = () => {
@@ -55,6 +55,7 @@ const displayController = (() => {
             let p = document.createElement('div');
             div.appendChild(p);
             p.id = 'square_' + `${i}`;
+            p.setAttribute('onclick', 'console.log(this.id), this.innerText = player1.marker');
             if (i<7) {
                 p.style.borderBottom = "10px solid white";
             }
@@ -96,3 +97,12 @@ const Player = (marker) => {
 
 const player1 = Player();
 const player2 = Player();
+
+// Gameplay
+const game = (() => {
+    const currentPlayer = player1;
+    const play = (() => {
+        console.log(currentPlayer.marker);
+    });
+    return {play};
+})();
