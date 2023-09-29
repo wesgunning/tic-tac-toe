@@ -55,7 +55,7 @@ const displayController = (() => {
             let p = document.createElement('div');
             div.appendChild(p);
             p.id = 'square_' + `${i}`;
-            p.setAttribute('onclick', 'console.log(this.id), this.innerText = player1.marker');
+            p.setAttribute('onclick', 'console.log(this.id), game.play(this)');
             if (i<7) {
                 p.style.borderBottom = "10px solid white";
             }
@@ -91,18 +91,29 @@ const displayController = (() => {
 })();
 
 // Players
-const Player = (marker) => {
-    return {marker};
+const Player = (name, marker) => {
+    return {name, marker};
 }
 
-const player1 = Player();
-const player2 = Player();
+const player1 = Player('player1');
+const player2 = Player('player2');
 
 // Gameplay
 const game = (() => {
-    const currentPlayer = player1;
-    const play = (() => {
-        console.log(currentPlayer.marker);
+    let currentPlayer = player1;
+    let turnNumber = 1;
+    const play = ((e) => {
+        console.log(currentPlayer);
+        e.innerText = currentPlayer.marker;
+        turnNumber ++;
+        console.log(`turnNumber: ${turnNumber}`);
+        // Change turn
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        }
+        else {
+            currentPlayer = player1;
+        }
     });
     return {play};
 })();

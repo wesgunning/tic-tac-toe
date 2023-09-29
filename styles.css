@@ -15,6 +15,7 @@ button:hover {
 body {
     height: 100vh;
     background: linear-gradient(to bottom right, green, black);
+    background-repeat: no-repeat;
 }
 header {
     border: 2px solid blue;
