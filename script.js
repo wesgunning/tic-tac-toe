@@ -107,6 +107,29 @@ const game = (() => {
         e.innerText = currentPlayer.marker;
         turnNumber ++;
         console.log(`turnNumber: ${turnNumber}`);
+        // Check for winning conditions
+        if (turnNumber > 4) {
+            if (
+                // Row1
+                square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText ||
+                // Row2
+                square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText ||
+                // Row 3
+                square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText ||
+                // Column1
+                square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText ||
+                // Column2
+                square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText ||
+                // Column3
+                square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText ||
+                // Diag top-left to bottom-right
+                square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText ||
+                // Diag bottom-left to top-right
+                square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText
+                ) {
+                    console.log(currentPlayer.name + ' wins!');
+            }
+        }
         // Change turn
         if (currentPlayer == player1) {
             currentPlayer = player2;
