@@ -99,8 +99,8 @@ const Player = (name, marker) => {
     return {name, marker};
 }
 
-const player1 = Player('player1');
-const player2 = Player('player2');
+const player1 = Player('Player 1');
+const player2 = Player('Player 2');
 
 // Gameplay
 const game = (() => {
@@ -108,38 +108,45 @@ const game = (() => {
     let turnNumber = 1;
     const play = ((e) => {
         console.log(currentPlayer);
-        e.innerText = currentPlayer.marker;
-        turnNumber ++;
-        console.log(`turnNumber: ${turnNumber}`);
-        // Check for winning conditions
-        if (turnNumber > 4) {
-            if (
-                // Row1
-                square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText ||
-                // Row2
-                square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText ||
-                // Row 3
-                square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText ||
-                // Column1
-                square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText ||
-                // Column2
-                square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText ||
-                // Column3
-                square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText ||
-                // Diag top-left to bottom-right
-                square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText ||
-                // Diag bottom-left to top-right
-                square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText
-                ) {
-                    console.log(currentPlayer.name + ' wins!');
+        // Prevent overwriting of squares
+        if (e.innerText == '') {
+            e.innerText = currentPlayer.marker;
+            turnNumber ++;
+            console.log(`turnNumber: ${turnNumber}`);
+            // Check for winning conditions
+            if (turnNumber > 4) {
+                if (
+                    // Row1
+                    square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText ||
+                    // Row2
+                    square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText ||
+                    // Row 3
+                    square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText ||
+                    // Column1
+                    square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText ||
+                    // Column2
+                    square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText ||
+                    // Column3
+                    square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText ||
+                    // Diag top-left to bottom-right
+                    square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText ||
+                    // Diag bottom-left to top-right
+                    square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText
+                    ) {
+                        console.log(currentPlayer.name + ' wins!');
+                        // Disable board
+                        for (let i=1;i<10;i++) {
+                            document.getElementById(`square_${i}`).setAttribute("onclick", "");
+                        }
+                }
             }
-        }
-        // Change turn
-        if (currentPlayer == player1) {
-            currentPlayer = player2;
-        }
-        else {
-            currentPlayer = player1;
+            // Change turn
+            if (currentPlayer == player1) {
+                currentPlayer = player2;
+            }
+            else {
+                currentPlayer = player1;
+            }
         }
     });
     return {play};
