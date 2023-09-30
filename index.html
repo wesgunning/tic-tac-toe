@@ -6,13 +6,14 @@
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="./styles.css">
     <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
     <header>
         <h1>Tic-Tac-Toe</h1>
     </header>
     <div id="board-container">
-        <button id="new-game" onclick="displayController.remove(this), displayController.playerSelect()">New Game</button>
+        <button id="new-game" class="animate__animated animate__zoomIn" onclick="displayController.remove(this), displayController.playerSelect()">New Game</button>
 
         <!-- <button id="1-player">1-Player</button>
         <button id="2-player">2-Player</button> -->

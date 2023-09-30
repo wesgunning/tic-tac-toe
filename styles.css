@@ -18,14 +18,12 @@ body {
     background-repeat: no-repeat;
 }
 header {
-    border: 2px solid blue;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100px;
 }
 #board-container {
-    border: 2px solid white;
     min-height: 75vh;
     display: flex;
     justify-content: center;
@@ -38,7 +36,6 @@ header {
     border-radius: 0.5rem;
 }
 .gameboard {
-    border: 2px solid red;
     font-family: Arial, Helvetica, sans-serif;
     width: 500px;
     height: 500px;

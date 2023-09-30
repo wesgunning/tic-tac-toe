@@ -37,8 +37,10 @@ const displayController = (() => {
     const playerSelect = () => {
         let container = document.getElementById('board-container');
         let btn1 = document.createElement('button');
+        btn1.classList.add('animate__animated','animate__zoomIn');
         btn1.textContent = '1-Player';
         let btn2 = document.createElement('button');
+        btn2.classList.add('animate__animated','animate__zoomIn');
         btn2.textContent = '2-Player';
         btn1.id = '1-player';
         btn2.id = '2-player';
@@ -48,6 +50,7 @@ const displayController = (() => {
     }
     const board = () => {
         let container = document.getElementById('board-container');
+        container.classList.add('animate__animated','animate__zoomIn');
         let div = document.createElement('div');
         container.appendChild(div);
         div.classList.add('gameboard');
@@ -69,6 +72,7 @@ const displayController = (() => {
         let container = document.getElementById('board-container');
         let choiceContainer = document.createElement('div');
         choiceContainer.id = 'choice-container';
+        choiceContainer.classList.add('animate__animated','animate__zoomIn');
         container.append(choiceContainer);
         let choice = document.createElement('div');
         choice.id = 'choice';
