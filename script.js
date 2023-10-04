@@ -4,17 +4,6 @@ const gameboard = (() => {
         ['','',''],
         ['','',''],
         ['','','']];
-    /* const rows = 3;
-    const columns = 3;
-    const build = () => {
-        for (let i=0; i<rows; i++) {
-            arr[i] = [];
-            for (let j=0; j<columns; j++) {
-                arr[i].push(' ');
-            }
-        }
-        console.log(arr);
-    }; */
     const rows = 3;
     const columns = 3;
     const build = () => {
@@ -106,7 +95,19 @@ const player2 = Player('Player 2');
 const game = (() => {
     let currentPlayer = player1;
     let turnNumber = 1;
+    winningColor = 'red';
     const play = ((e) => {
+        const win = (() => {
+            console.log(currentPlayer.name + ' wins!');
+            let winner = currentPlayer.name;
+            setTimeout(() => {
+                alert(winner + ' wins!')
+            }, 300);
+            // Disable board
+            for (let i=1;i<10;i++) {
+                document.getElementById(`square_${i}`).setAttribute("onclick", "");
+            }
+        });
         console.log(currentPlayer);
         // Prevent overwriting of squares
         if (e.innerText == '') {
@@ -115,7 +116,7 @@ const game = (() => {
             console.log(`turnNumber: ${turnNumber}`);
             // Check for winning conditions
             if (turnNumber > 4) {
-                if (
+                /*if (
                     // Row1
                     square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText ||
                     // Row2
@@ -133,11 +134,72 @@ const game = (() => {
                     // Diag bottom-left to top-right
                     square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText
                     ) {
-                        console.log(currentPlayer.name + ' wins!');
-                        // Disable board
-                        for (let i=1;i<10;i++) {
-                            document.getElementById(`square_${i}`).setAttribute("onclick", "");
-                        }
+                        win();
+                        // console.log(currentPlayer.name + ' wins!');
+                        // let winner = currentPlayer.name;
+                        // setTimeout(() => {
+                        //     alert(winner + ' wins!')
+                        // }, 300);
+                        // // Disable board
+                        // for (let i=1;i<10;i++) {
+                        //     document.getElementById(`square_${i}`).setAttribute("onclick", "");
+                        // }
+                }*/
+                // Row1
+                if (square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText) {
+                    square_1.style.color = winningColor;
+                    square_2.style.color = winningColor;
+                    square_3.style.color = winningColor;
+                    win();
+                }
+                // Row2
+                else if(square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText) {
+                    square_4.style.color = winningColor;
+                    square_5.style.color = winningColor;
+                    square_6.style.color = winningColor;
+                    win();
+                }
+                // Row3
+                else if(square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText) {
+                    square_7.style.color = winningColor;
+                    square_8.style.color = winningColor;
+                    square_9.style.color = winningColor;
+                    win();
+                }
+                // Column1
+                else if(square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText) {
+                    square_1.style.color = winningColor;
+                    square_4.style.color = winningColor;
+                    square_7.style.color = winningColor;
+                    win();
+                }
+                // Column2
+                else if(square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText) {
+                    square_2.style.color = winningColor;
+                    square_5.style.color = winningColor;
+                    square_8.style.color = winningColor;
+                    win();
+                }
+                // Column3
+                else if(square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText) {
+                    square_3.style.color = winningColor;
+                    square_6.style.color = winningColor;
+                    square_9.style.color = winningColor;
+                    win();
+                }
+                // Diag top-left to bottom-right
+                else if(square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText) {
+                    square_1.style.color = winningColor;
+                    square_5.style.color = winningColor;
+                    square_9.style.color = winningColor;
+                    win();
+                }
+                // Diag bottom-left to top-right
+                else if(square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText) {
+                    square_7.style.color = winningColor;
+                    square_5.style.color = winningColor;
+                    square_3.style.color = winningColor;
+                    win();
                 }
             }
             // Change turn
