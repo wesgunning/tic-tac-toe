@@ -60,3 +60,15 @@ div#choice {
     display: flex;
     justify-content: center;
 }
+#play-again {
+    background-color: hsla(0, 0%, 0%, 0.8);
+    position: absolute;
+    padding: 3rem;
+    border-radius: 0.5rem;
+
+}
+#win-msg {
+    color: buttonface;
+    font-size: 3rem;
+    text-align: center;
+}

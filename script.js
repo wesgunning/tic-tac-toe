@@ -43,6 +43,7 @@ const displayController = (() => {
         let div = document.createElement('div');
         container.appendChild(div);
         div.classList.add('gameboard');
+        div.id = 'game-board';
         for (let i=1; i<=9; i++) {
             let p = document.createElement('div');
             div.appendChild(p);
@@ -80,7 +81,39 @@ const displayController = (() => {
         markerX.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerO").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
         markerO.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerX").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
     }
-    return {remove, playerSelect, board, markerSelect};
+    const playAgain = (winner) => {
+        let container = document.getElementById('board-container');
+        let div = document.createElement('div');
+        div.id = 'play-again';
+        div.classList.add('animate__animated','animate__zoomIn');
+        container.append(div);
+        let message = document.createElement('div');
+        message.innerText = `${winner} wins!`
+        message.id = 'win-msg';
+        div.append(message);
+        let btn1 = document.createElement('button');
+        btn1.id = 'newGameBtn';
+        btn1.innerText = 'New Game';
+        btn1.setAttribute('onclick', 'displayController.newGame()')
+        let btn2 = document.createElement('button');
+        btn2.id = 'playAgainBtn';
+        btn2.innerText = 'Play Again';
+        btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("play-again")), displayController.reset()');
+        div.append(btn1, btn2);
+    }
+    const newGame = () => {
+        remove(document.getElementById('play-again'));
+        remove(document.getElementById('game-board'));
+        playerSelect();
+    }
+    const reset = () => {
+        for (let i=1;i<10;i++) {
+            document.getElementById(`square_${i}`).setAttribute("onclick", "game.play(this)");
+            document.getElementById(`square_${i}`).innerText = '';
+            document.getElementById(`square_${i}`).style.color = 'white';
+        }
+    };
+    return {remove, playerSelect, board, markerSelect, playAgain, newGame, reset};
 })();
 
 // Players
@@ -100,8 +133,9 @@ const game = (() => {
         const win = (() => {
             console.log(currentPlayer.name + ' wins!');
             let winner = currentPlayer.name;
+            turnNumber = 1;
             setTimeout(() => {
-                alert(winner + ' wins!')
+                displayController.playAgain(winner)
             }, 300);
             // Disable board
             for (let i=1;i<10;i++) {
