@@ -104,6 +104,7 @@ const displayController = (() => {
     const newGame = () => {
         remove(document.getElementById('play-again'));
         remove(document.getElementById('game-board'));
+        game.winner = '';
         playerSelect();
     }
     const reset = () => {
@@ -126,13 +127,24 @@ const player2 = Player('Player 2');
 
 // Gameplay
 const game = (() => {
+    const winner = '';
     let currentPlayer = player1;
     let turnNumber = 1;
     winningColor = 'red';
     const play = ((e) => {
+        // Lets winner from previous game go first
+        if (turnNumber == 1) {
+            if (game.winner == player2.name) {
+                currentPlayer = player2;
+            }
+            else if (game.winner == player1.name) {
+                currentPlayer = player1;
+            }
+        }
         const win = (() => {
             console.log(currentPlayer.name + ' wins!');
             let winner = currentPlayer.name;
+            game.winner = winner;
             turnNumber = 1;
             setTimeout(() => {
                 displayController.playAgain(winner)
@@ -245,5 +257,5 @@ const game = (() => {
             }
         }
     });
-    return {play};
+    return {play, winner};
 })();
