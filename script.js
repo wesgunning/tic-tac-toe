@@ -34,7 +34,7 @@ const displayController = (() => {
         btn1.id = '1-player';
         btn2.id = '2-player';
         container.append(btn1, btn2);
-        btn1.setAttribute('onclick', 'displayController.remove(document.getElementById("2-player")), displayController.remove(this)');
+        btn1.setAttribute('onclick', 'game.mode = "1P", displayController.remove(document.getElementById("2-player")), displayController.remove(this), displayController.difficulty()');
         btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
     }
     const board = () => {
@@ -58,6 +58,33 @@ const displayController = (() => {
         }
         gameboard.build();
     }
+    const difficulty = () => {
+        let container = document.getElementById('board-container');
+        let choiceContainer = document.createElement('div');
+        choiceContainer.id = 'choice-container';
+        choiceContainer.classList.add('animate__animated','animate__zoomIn');
+        container.append(choiceContainer);
+        let msg = document.createElement('div');
+        msg.classList.add('choice');
+        msg.innerText = 'Select difficulty';
+        let difficulty = document.createElement('div');
+        difficulty.id = 'difficulty';
+        difficulty.classList.add('animate__animated','animate__zoomIn');
+        choiceContainer.append(msg, difficulty);
+        let easy = document.createElement('button');
+        easy.innerText = 'Easy'
+        easy.id = 'easy';
+        easy.setAttribute('onclick', 'game.level = this.id, displayController.remove(document.getElementById("choice-container")), displayController.markerSelect()');
+        let medium = document.createElement('button');
+        medium.innerText = 'Medium';
+        medium.id = 'medium';
+        medium.setAttribute('onclick', 'game.level = this.id, displayController.remove(document.getElementById("choice-container")), displayController.markerSelect()');
+        let hard = document.createElement('button');
+        hard.innerText = 'Hard';
+        hard.id = 'hard';
+        hard.setAttribute('onclick', 'game.level = this.id, displayController.remove(document.getElementById("choice-container")), displayController.markerSelect()');
+        difficulty.append(easy, medium, hard);
+    };
     const markerSelect = () => {
         let container = document.getElementById('board-container');
         let choiceContainer = document.createElement('div');
@@ -114,7 +141,7 @@ const displayController = (() => {
             document.getElementById(`square_${i}`).style.color = 'white';
         }
     };
-    return {remove, playerSelect, board, markerSelect, playAgain, newGame, reset};
+    return {remove, playerSelect, board, difficulty, markerSelect, playAgain, newGame, reset};
 })();
 
 // Players
@@ -128,7 +155,9 @@ const player2 = Player('Player 2');
 // Gameplay
 const game = (() => {
     const winner = '';
-    let currentPlayer = player1;
+    const mode = '';
+    const level = '';
+    let currentPlayer;
     let turnNumber = 1;
     winningColor = 'red';
     const play = ((e) => {
@@ -138,6 +167,9 @@ const game = (() => {
                 currentPlayer = player2;
             }
             else if (game.winner == player1.name) {
+                currentPlayer = player1;
+            }
+            else {
                 currentPlayer = player1;
             }
         }
@@ -162,35 +194,6 @@ const game = (() => {
             console.log(`turnNumber: ${turnNumber}`);
             // Check for winning conditions
             if (turnNumber > 4) {
-                /*if (
-                    // Row1
-                    square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText ||
-                    // Row2
-                    square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText ||
-                    // Row 3
-                    square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText ||
-                    // Column1
-                    square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText ||
-                    // Column2
-                    square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText ||
-                    // Column3
-                    square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText ||
-                    // Diag top-left to bottom-right
-                    square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText ||
-                    // Diag bottom-left to top-right
-                    square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText
-                    ) {
-                        win();
-                        // console.log(currentPlayer.name + ' wins!');
-                        // let winner = currentPlayer.name;
-                        // setTimeout(() => {
-                        //     alert(winner + ' wins!')
-                        // }, 300);
-                        // // Disable board
-                        // for (let i=1;i<10;i++) {
-                        //     document.getElementById(`square_${i}`).setAttribute("onclick", "");
-                        // }
-                }*/
                 // Row1
                 if (square_1.innerText != "" && square_1.innerText == square_2.innerText && square_2.innerText == square_3.innerText) {
                     square_1.style.color = winningColor;
@@ -257,5 +260,5 @@ const game = (() => {
             }
         }
     });
-    return {play, winner};
+    return {play, winner, mode, level};
 })();
