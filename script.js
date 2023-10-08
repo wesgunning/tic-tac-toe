@@ -187,6 +187,17 @@ const game = (() => {
             }
         });
         console.log(currentPlayer);
+        // Computer move
+        const move = (() => {
+            let i = Math.floor(Math.random()*10);
+            if (document.getElementById(`square_${i}`).innerText == '') {
+                game.play(document.getElementById(`square_${i}`));
+            }
+            else {
+                move();
+            }
+            
+        });
         // Prevent overwriting of squares
         if (e.innerText == '') {
             e.innerText = currentPlayer.marker;
@@ -200,6 +211,7 @@ const game = (() => {
                     square_2.style.color = winningColor;
                     square_3.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Row2
                 else if(square_4.innerText != "" && square_4.innerText == square_5.innerText && square_5.innerText == square_6.innerText) {
@@ -207,6 +219,7 @@ const game = (() => {
                     square_5.style.color = winningColor;
                     square_6.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Row3
                 else if(square_7.innerText != "" && square_7.innerText == square_8.innerText && square_8.innerText == square_9.innerText) {
@@ -214,6 +227,7 @@ const game = (() => {
                     square_8.style.color = winningColor;
                     square_9.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Column1
                 else if(square_1.innerText != "" && square_1.innerText == square_4.innerText && square_4.innerText == square_7.innerText) {
@@ -221,6 +235,7 @@ const game = (() => {
                     square_4.style.color = winningColor;
                     square_7.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Column2
                 else if(square_2.innerText != "" && square_2.innerText == square_5.innerText && square_5.innerText == square_8.innerText) {
@@ -228,6 +243,7 @@ const game = (() => {
                     square_5.style.color = winningColor;
                     square_8.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Column3
                 else if(square_3.innerText != "" && square_3.innerText == square_6.innerText && square_6.innerText == square_9.innerText) {
@@ -235,6 +251,7 @@ const game = (() => {
                     square_6.style.color = winningColor;
                     square_9.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Diag top-left to bottom-right
                 else if(square_1.innerText != "" && square_1.innerText == square_5.innerText && square_5.innerText == square_9.innerText) {
@@ -242,6 +259,7 @@ const game = (() => {
                     square_5.style.color = winningColor;
                     square_9.style.color = winningColor;
                     win();
+                    return;
                 }
                 // Diag bottom-left to top-right
                 else if(square_7.innerText != "" && square_7.innerText == square_5.innerText && square_5.innerText == square_3.innerText) {
@@ -249,6 +267,7 @@ const game = (() => {
                     square_5.style.color = winningColor;
                     square_3.style.color = winningColor;
                     win();
+                    return;
                 }
             }
             // Change turn
@@ -257,6 +276,15 @@ const game = (() => {
             }
             else {
                 currentPlayer = player1;
+            }
+            // Checks for 1-Player or 2-Player
+            if (game.mode == '1P') {
+                setTimeout(() => {
+                    if (currentPlayer == player2) {
+                        move();
+                        currentPlayer = player1;
+                    }
+                }, 500);
             }
         }
     });
