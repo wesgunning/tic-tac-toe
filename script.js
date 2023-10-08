@@ -270,6 +270,11 @@ const game = (() => {
                     return;
                 }
             }
+            if (turnNumber == 10) {
+                setTimeout(() => {
+                    alert('Tie');
+                }, 300);
+            }
             // Change turn
             if (currentPlayer == player1) {
                 currentPlayer = player2;
