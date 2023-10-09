@@ -34,8 +34,8 @@ const displayController = (() => {
         btn1.id = '1-player';
         btn2.id = '2-player';
         container.append(btn1, btn2);
-        btn1.setAttribute('onclick', 'game.mode = "1P", displayController.remove(document.getElementById("2-player")), displayController.remove(this), displayController.difficulty()');
-        btn2.setAttribute('onclick', 'displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
+        btn1.setAttribute('onclick', 'game.mode = "1P", player2.name = "Computer", displayController.remove(document.getElementById("2-player")), displayController.remove(this), displayController.difficulty()');
+        btn2.setAttribute('onclick', 'game.mode = "2P", displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
     }
     const board = () => {
         let container = document.getElementById('board-container');
@@ -142,6 +142,12 @@ const displayController = (() => {
             document.getElementById(`square_${i}`).innerText = '';
             document.getElementById(`square_${i}`).style.color = 'white';
         }
+        if (game.mode == '1P' && game.winner == 'Computer') {
+            setTimeout(() => {
+                let i = Math.floor(Math.random()*9) + 1;
+                game.play(document.getElementById(`square_${i}`));
+            }, 200)
+        }
     };
     return {remove, playerSelect, board, difficulty, markerSelect, playAgain, newGame, reset};
 })();
@@ -210,7 +216,6 @@ const game = (() => {
             else {
                 move();
             }
-            
         });
         // Prevent overwriting of squares
         if (e.innerText == '') {
