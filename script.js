@@ -115,7 +115,9 @@ const displayController = (() => {
         div.classList.add('animate__animated','animate__zoomIn');
         container.append(div);
         let message = document.createElement('div');
-        message.innerText = `${winner} wins!`
+        message.innerText = "It's a tie!";
+        if (winner != 'tie') {
+            message.innerText = `${winner} wins!`};
         message.id = 'win-msg';
         div.append(message);
         let btn1 = document.createElement('button');
@@ -180,7 +182,18 @@ const game = (() => {
             turnNumber = 1;
             setTimeout(() => {
                 displayController.playAgain(winner)
-            }, 300);
+            }, 200);
+            // Disable board
+            for (let i=1;i<10;i++) {
+                document.getElementById(`square_${i}`).setAttribute("onclick", "");
+            }
+        });
+        const tie = (() => {
+            let winner = 'tie';
+            turnNumber = 1;
+            setTimeout(() => {
+                displayController.playAgain(winner)
+            }, 200);
             // Disable board
             for (let i=1;i<10;i++) {
                 document.getElementById(`square_${i}`).setAttribute("onclick", "");
@@ -189,7 +202,8 @@ const game = (() => {
         console.log(currentPlayer);
         // Computer move
         const move = (() => {
-            let i = Math.floor(Math.random()*10);
+            let i = Math.floor(Math.random()*9) + 1;
+            console.log(`i = ${i}`);
             if (document.getElementById(`square_${i}`).innerText == '') {
                 game.play(document.getElementById(`square_${i}`));
             }
@@ -272,7 +286,7 @@ const game = (() => {
             }
             if (turnNumber == 10) {
                 setTimeout(() => {
-                    alert('Tie');
+                    tie();
                 }, 300);
             }
             // Change turn
