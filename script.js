@@ -34,7 +34,7 @@ const displayController = (() => {
         btn1.id = '1-player';
         btn2.id = '2-player';
         container.append(btn1, btn2);
-        btn1.setAttribute('onclick', 'game.mode = "1P", player2.name = "Computer", displayController.remove(document.getElementById("2-player")), displayController.remove(this), displayController.difficulty()');
+        btn1.setAttribute('onclick', 'game.mode = "1P", player2.name = "Computer", displayController.remove(document.getElementById("2-player")), displayController.remove(this), displayController.markerSelect()');
         btn2.setAttribute('onclick', 'game.mode = "2P", displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
     }
     const board = () => {
@@ -58,7 +58,7 @@ const displayController = (() => {
         }
         gameboard.build();
     }
-    const difficulty = () => {
+    /*const difficulty = () => {
         let container = document.getElementById('board-container');
         let choiceContainer = document.createElement('div');
         choiceContainer.id = 'choice-container';
@@ -84,7 +84,7 @@ const displayController = (() => {
         hard.id = 'hard';
         hard.setAttribute('onclick', 'game.level = this.id, displayController.remove(document.getElementById("choice-container")), displayController.markerSelect()');
         difficulty.append(easy, medium, hard);
-    };
+    }; */
     const markerSelect = () => {
         let container = document.getElementById('board-container');
         let choiceContainer = document.createElement('div');
@@ -105,8 +105,72 @@ const displayController = (() => {
         markerO.innerText = 'O';
         markerO.id = 'markerO';
         btnContainer.append(markerX, markerO);
-        markerX.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerO").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
-        markerO.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerX").innerText, displayController.remove(document.getElementById("choice-container")), displayController.board()');
+        markerX.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerO").innerText, displayController.remove(document.getElementById("choice-container")), displayController.enterName1()');
+        markerO.setAttribute('onclick', 'player1.marker = this.innerText, player2.marker = document.getElementById("markerX").innerText, displayController.remove(document.getElementById("choice-container")), displayController.enterName1()');
+    }
+    const enterName1 = () => {
+        let container = document.getElementById('board-container');
+        let choiceContainer = document.createElement('div');
+        choiceContainer.id = 'choice-container';
+        choiceContainer.classList.add('animate__animated','animate__zoomIn');
+        container.append(choiceContainer);
+        let choice = document.createElement('div');
+        choice.id = 'choice';
+        choice.innerText = 'Player 1: Enter your name';
+        choiceContainer.append(choice);
+        let textContainer = document.createElement('div');
+        choice.append(textContainer);
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'input';
+        textContainer.append(input);
+        input.focus();
+        let btnContainer = document.createElement('div');
+        btnContainer.id = "btn-container";
+        choiceContainer.append(btnContainer);
+        let skip = document.createElement('button');
+        skip.id = 'skip';
+        skip.innerText = 'Skip'
+        let enter = document.createElement('button');
+        enter.id = 'enter';
+        enter.innerText = 'Enter';
+        btnContainer.append(skip, enter);
+        enter.setAttribute('onclick', 'player1.name = document.getElementById("input").value, displayController.remove(document.getElementById("choice-container")), displayController.enterName2()');
+        skip.setAttribute('onclick', 'player1.name = "Player 1", displayController.remove(document.getElementById("choice-container")), displayController.enterName2()');
+        if (game.mode == '1P') {
+            enter.setAttribute('onclick', 'player1.name = document.getElementById("input").value, displayController.remove(document.getElementById("choice-container")), displayController.board()');
+            skip.setAttribute('onclick', 'player1.name = "Player 1", displayController.remove(document.getElementById("choice-container")), displayController.board()');
+        }
+    }
+    const enterName2 = () => {
+        let container = document.getElementById('board-container');
+        let choiceContainer = document.createElement('div');
+        choiceContainer.id = 'choice-container';
+        choiceContainer.classList.add('animate__animated','animate__zoomIn');
+        container.append(choiceContainer);
+        let choice = document.createElement('div');
+        choice.id = 'choice';
+        choice.innerText = 'Player 2: Enter your name';
+        choiceContainer.append(choice);
+        let textContainer = document.createElement('div');
+        choice.append(textContainer);
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'input';
+        textContainer.append(input);
+        input.focus();
+        let btnContainer = document.createElement('div');
+        btnContainer.id = "btn-container";
+        choiceContainer.append(btnContainer);
+        let skip = document.createElement('button');
+        skip.id = 'skip';
+        skip.innerText = 'Skip'
+        let enter = document.createElement('button');
+        enter.id = 'enter';
+        enter.innerText = 'Enter';
+        btnContainer.append(skip, enter);
+        enter.setAttribute('onclick', 'player2.name = document.getElementById("input").value, displayController.remove(document.getElementById("choice-container")), displayController.board()');
+        skip.setAttribute('onclick', 'player2.name = "Player 2", displayController.remove(document.getElementById("choice-container")), displayController.board()');
     }
     const playAgain = (winner) => {
         let container = document.getElementById('board-container');
@@ -134,6 +198,8 @@ const displayController = (() => {
         remove(document.getElementById('play-again'));
         remove(document.getElementById('game-board'));
         game.winner = '';
+        player1.name = 'Player 1';
+        player2.name = 'Player 2';
         playerSelect();
     }
     const reset = () => {
@@ -149,7 +215,7 @@ const displayController = (() => {
             }, 200)
         }
     };
-    return {remove, playerSelect, board, difficulty, markerSelect, playAgain, newGame, reset};
+    return {remove, playerSelect, board, markerSelect, enterName1, enterName2, playAgain, newGame, reset};
 })();
 
 // Players
