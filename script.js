@@ -38,6 +38,12 @@ const displayController = (() => {
         btn2.setAttribute('onclick', 'game.mode = "2P", displayController.remove(document.getElementById("1-player")), displayController.remove(this), displayController.markerSelect()');
     }
     const board = () => {
+        if (player1.name == '') {
+            player1.name = 'Player 1';
+        };
+        if (player2.name == '') {
+            player2.name = 'Player 2';
+        }
         let container = document.getElementById('board-container');
         container.classList.add('animate__animated','animate__zoomIn');
         let div = document.createElement('div');
@@ -140,7 +146,7 @@ const displayController = (() => {
         if (game.mode == '1P') {
             enter.setAttribute('onclick', 'player1.name = document.getElementById("input").value, displayController.remove(document.getElementById("choice-container")), displayController.board()');
             skip.setAttribute('onclick', 'player1.name = "Player 1", displayController.remove(document.getElementById("choice-container")), displayController.board()');
-        }
+        };
     }
     const enterName2 = () => {
         let container = document.getElementById('board-container');
@@ -170,7 +176,7 @@ const displayController = (() => {
         enter.innerText = 'Enter';
         btnContainer.append(skip, enter);
         enter.setAttribute('onclick', 'player2.name = document.getElementById("input").value, displayController.remove(document.getElementById("choice-container")), displayController.board()');
-        skip.setAttribute('onclick', 'player2.name = "Player 2", displayController.remove(document.getElementById("choice-container")), displayController.board()');
+        skip.setAttribute('onclick', 'player2.name = "Player 2", displayController.remove(document.getElementById("choice-container")), displayController.board()')
     }
     const playAgain = (winner) => {
         let container = document.getElementById('board-container');
