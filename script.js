@@ -380,7 +380,7 @@ const game = (() => {
                         move();
                         currentPlayer = player1;
                     }
-                }, 500);
+                }, 200);
             }
         }
     });
